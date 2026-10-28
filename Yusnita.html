@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kalkulator Matematika</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: #18324b;
+      background: #eef5f7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at 12% 18%, #d9f4e7 0, transparent 28%),
+        radial-gradient(circle at 88% 82%, #dceaff 0, transparent 30%),
+        #f3f7fa;
+    }
+
+    .calculator {
+      width: min(100%, 460px);
+      padding: 34px;
+      border: 1px solid #e1ebef;
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 24px 70px rgb(28 67 86 / 12%);
+    }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      border-radius: 16px;
+      background: #e3f7ed;
+      color: #168455;
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #168455;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(26px, 6vw, 34px);
+      letter-spacing: -.04em;
+    }
+
+    .intro {
+      margin: 10px 0 26px;
+      color: #6b7f8e;
+      line-height: 1.6;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 50px;
+      padding: 0 14px;
+      border: 1px solid #d8e3e8;
+      border-radius: 12px;
+      outline: none;
+      background: #fbfdfe;
+      color: #18324b;
+      font: inherit;
+      transition: border-color .18s, box-shadow .18s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #20a36a;
+      box-shadow: 0 0 0 4px rgb(32 163 106 / 14%);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    button {
+      min-height: 48px;
+      border: 0;
+      border-radius: 12px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .15s, background-color .15s;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .calculate {
+      flex: 1;
+      background: #168455;
+      color: #fff;
+    }
+
+    .calculate:hover {
+      background: #116b44;
+    }
+
+    .reset {
+      padding: 0 18px;
+      background: #eef3f5;
+      color: #496172;
+    }
+
+    .reset:hover {
+      background: #e2eaee;
+    }
+
+    .result {
+      min-height: 82px;
+      margin-top: 22px;
+      padding: 16px 18px;
+      border: 1px solid #d9efe3;
+      border-radius: 14px;
+      background: #f1fbf5;
+    }
+
+    .result-label {
+      display: block;
+      margin-bottom: 5px;
+      color: #648071;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    output {
+      color: #116b44;
+      font-size: 24px;
+      font-weight: 750;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 420px) {
+      .calculator {
+        padding: 26px 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="calculator">
+    <div class="icon" aria-hidden="true">+</div>
+    <p class="eyebrow">Kalkulator sederhana</p>
+    <h1>Kalkulator Matematika</h1>
+    <p class="intro">
+      Pilih operasi, lalu masukkan dua angka untuk menghitung hasilnya.
+    </p>
+
+    <form id="calculator-form">
+      <div class="field">
+        <label for="operation">Pilih operasi</label>
+        <select id="operation" name="operation">
+          <option value="add">Tambah (+)</option>
+          <option value="subtract">Kurang (−)</option>
+          <option value="multiply">Kali (×)</option>
+          <option value="divide">Bagi (÷)</option>
+          <option value="power">Pangkat (xʸ)</option>
+          <option value="remainder">Sisa bagi (%)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="number-a">Angka pertama</label>
+        <input
+          id="number-a"
+          name="number-a"
+          type="number"
+          step="any"
+          placeholder="Contoh: 12"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="number-b">Angka kedua</label>
+        <input
+          id="number-b"
+          name="number-b"
+          type="number"
+          step="any"
+          placeholder="Contoh: 8"
+          required
+        >
+      </div>
+
+      <div class="actions">
+        <button class="calculate" type="submit">Hitung</button>
+        <button class="reset" id="reset-button" type="reset">Ulangi</button>
+      </div>
+    </form>
+
+    <section class="result" aria-live="polite" aria-atomic="true">
+      <span class="result-label">Hasil</span>
+      <output id="result">Masukkan angka di atas</output>
+    </section>
+  </main>
+
+  <script>
+    const form = document.querySelector("#calculator-form");
+    const operation = document.querySelector("#operation");
+    const inputA = document.querySelector("#number-a");
+    const inputB = document.querySelector("#number-b");
+    const result = document.querySelector("#result");
+    const icon = document.querySelector(".icon");
+    const resetButton = document.querySelector("#reset-button");
+
+    const numberFormat = new Intl.NumberFormat("id-ID", {
+      maximumFractionDigits: 10
+    });
+
+    const operations = {
+      add: { symbol: "+", calculate: (a, b) => a + b },
+      subtract: { symbol: "−", calculate: (a, b) => a - b },
+      multiply: { symbol: "×", calculate: (a, b) => a * b },
+      divide: { symbol: "÷", calculate: (a, b) => a / b },
+      power: { symbol: "xʸ", calculate: (a, b) => a ** b },
+      remainder: { symbol: "%", calculate: (a, b) => a % b }
+    };
+
+    operation.addEventListener("change", () => {
+      icon.textContent = operations[operation.value].symbol;
+      result.textContent = "Masukkan angka di atas";
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      if (!form.reportValidity()) {
+        return;
+      }
+
+      const a = Number(inputA.value);
+      const b = Number(inputB.value);
+
+      if (operation.value === "divide" && b === 0) {
+        result.textContent = "Tidak dapat membagi dengan nol.";
+        return;
+      }
+
+      const answer = operations[operation.value].calculate(a, b);
+
+      result.textContent = Number.isFinite(answer)
+        ? numberFormat.format(answer)
+        : "Hasil tidak dapat ditampilkan.";
+    });
+
+    resetButton.addEventListener("click", () => {
+      result.textContent = "Masukkan angka di atas";
+    });
+  </script>
+</body>
+</html>
